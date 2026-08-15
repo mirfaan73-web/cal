@@ -427,6 +427,12 @@ body {
   font-weight: 700;
 }
 
+.theme-menu-divider {
+  height: 1px;
+  background: var(--bg-card-border);
+  margin: 4px 0;
+}
+
 .theme-opt {
   display: flex;
   align-items: center;

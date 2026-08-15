@@ -393,6 +393,8 @@
       
       // Theme Picker
       this.themePickerBtn = document.getElementById('themePickerBtn');
+      this.themeSunIcon = this.themePickerBtn ? this.themePickerBtn.querySelector('.theme-sun-icon') : null;
+      this.themeMoonIcon = this.themePickerBtn ? this.themePickerBtn.querySelector('.theme-moon-icon') : null;
       this.themeMenu = document.getElementById('themeMenu');
       this.themeOpts = document.querySelectorAll('.theme-opt');
       
@@ -430,14 +432,24 @@
       this.themeOpts.forEach(btn => {
         btn.classList.toggle('active', btn.dataset.themeVal === themeName);
       });
+      if (this.themeSunIcon && this.themeMoonIcon) {
+        if (themeName === 'aurora') {
+          this.themeSunIcon.classList.add('hidden');
+          this.themeMoonIcon.classList.remove('hidden');
+        } else {
+          this.themeSunIcon.classList.remove('hidden');
+          this.themeMoonIcon.classList.add('hidden');
+        }
+      }
     }
 
     cycleTheme() {
-      const themes = ['obsidian', 'cyberpunk', 'aurora', 'emerald'];
+      const themes = ['obsidian', 'aurora', 'cyberpunk', 'emerald'];
       const curr = document.documentElement.getAttribute('data-theme') || 'obsidian';
       const nextIndex = (themes.indexOf(curr) + 1) % themes.length;
       this.setTheme(themes[nextIndex]);
-      this.showToast(`Theme: ${themes[nextIndex].toUpperCase()}`);
+      const modeLabel = themes[nextIndex] === 'aurora' ? 'Light Mode (Frosted Aurora)' : `Dark Mode (${themes[nextIndex].toUpperCase()})`;
+      this.showToast(modeLabel);
     }
 
     // --- SOUND UI ---
