@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="obsidian">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>OmniCalc Ultra | Modern Glassmorphic Calculator & Converter</title>
+  <meta name="description" content="A state-of-the-art glassmorphic multi-mode calculator with scientific math engine, instant unit converter, calculation history tape, and customizable glowing themes.">
+  
+  <!-- Mobile Web App & PWA Settings -->
+  <meta name="theme-color" content="#07090e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <div class="app-container">
+    <!-- Header Bar -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="3" ry="3"></rect>
+            <line x1="8" y1="6" x2="16" y2="6"></line>
+            <line x1="16" y1="14" x2="16" y2="18"></line>
+            <path d="M16 10h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M8 14h.01"></path>
+            <path d="M12 18h.01"></path>
+            <path d="M8 18h.01"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">OmniCalc</span>
+          <span class="brand-badge">ULTRA</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="header-actions">
+        <!-- Sound Toggle -->
+        <button class="icon-btn" id="soundToggleBtn" title="Toggle Sound FX (S)" aria-label="Toggle Sound Effects">
+          <svg class="sound-on-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg class="sound-off-icon hidden" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
+        <!-- Theme Picker Dropdown -->
+        <div class="theme-dropdown-wrapper">
+          <button class="icon-btn" id="themePickerBtn" title="Switch Theme (T)" aria-label="Theme Selector">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+              <circle cx="12" cy="12" r="5"></circle>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+            </svg>
+          </button>
+          <div class="theme-menu" id="themeMenu">
+            <div class="theme-menu-title">Select Aesthetic</div>
+            <button class="theme-opt active" data-theme-val="obsidian">
+              <span class="theme-preview-dot obsidian"></span>
+              <span>Obsidian Glow</span>
+            </button>
+            <button class="theme-opt" data-theme-val="cyberpunk">
+              <span class="theme-preview-dot cyberpunk"></span>
+              <span>Cyberpunk Neon</span>
+            </button>
+            <button class="theme-opt" data-theme-val="aurora">
+              <span class="theme-preview-dot aurora"></span>
+              <span>Frosted Aurora</span>
+            </button>
+            <button class="theme-opt" data-theme-val="emerald">
+              <span class="theme-preview-dot emerald"></span>
+              <span>Emerald Matrix</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- History Drawer Button -->
+        <button class="icon-btn" id="historyDrawerBtn" title="Calculation History (H)" aria-label="Open History Drawer">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span class="badge-dot" id="historyBadge"></span>
+        </button>
+
+        <!-- Keyboard Shortcuts Info -->
+        <button class="icon-btn" id="shortcutsBtn" title="Keyboard Shortcuts (?)" aria-label="Keyboard Shortcuts">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+            <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" id="tabStandard" role="tab" aria-selected="true" data-mode="standard">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+          <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+        </svg>
+        <span>Standard</span>
+      </button>
+      <button class="tab-btn" id="tabScientific" role="tab" aria-selected="false" data-mode="scientific">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6 9h12M6 13h12M6 5h6"></path>
+        </svg>
+        <span>Scientific</span>
+      </button>
+      <button class="tab-btn" id="tabConverter" role="tab" aria-selected="false" data-mode="converter">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+          <path d="M17 3v18M17 3l4 4M17 3l-4 4M7 21V3M7 21l-4-4M7 21l4-4"></path>
+        </svg>
+        <span>Converter</span>
+      </button>
+    </nav>
+
+    <!-- Calculator Card -->
+    <main class="calculator-card" id="calculatorCard">
+      
+      <!-- Calculator Display Viewport -->
+      <section class="display-section" id="displaySection" title="Click to copy result">
+        <!-- Status Row: Memory indicator, Angle Mode, Live preview -->
+        <div class="display-top-bar">
+          <div class="status-indicators">
+            <span class="status-pill hidden" id="memoryIndicator">M</span>
+            <button class="status-pill angle-toggle hidden" id="angleModeToggle" title="Toggle Degrees / Radians">DEG</button>
+          </div>
+          <div class="expression-preview" id="expressionPreview" aria-live="polite"></div>
+        </div>
+
+        <!-- Main Numeric Output / Input -->
+        <div class="main-display-wrapper">
+          <div class="main-display" id="mainDisplay" tabindex="0" role="textbox" aria-readonly="true">0</div>
+          <div class="copy-hint" id="copyHint">Copied!</div>
+        </div>
+
+        <!-- Sub-display Live Result (when typing complex expression) -->
+        <div class="live-result-bar" id="liveResultBar"></div>
+      </section>
+
+      <!-- Memory Toolbar (Standard & Scientific) -->
+      <div class="memory-toolbar" id="memoryToolbar">
+        <button class="mem-btn" data-action="mc" title="Memory Clear">MC</button>
+        <button class="mem-btn" data-action="mr" title="Memory Recall">MR</button>
+        <button class="mem-btn" data-action="m-plus" title="Memory Add">M+</button>
+        <button class="mem-btn" data-action="m-minus" title="Memory Subtract">M-</button>
+        <button class="mem-btn" data-action="ms" title="Memory Store">MS</button>
+      </div>
+
+      <!-- KEYPAD CONTAINER -->
+      <div class="keypad-container" id="keypadContainer">
+        
+        <!-- Scientific Extended Keypad (Shown in Scientific Mode) -->
+        <div class="scientific-keypad hidden" id="scientificKeypad">
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="sin" title="Sine">sin</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="cos" title="Cosine">cos</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="tan" title="Tangent">tan</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="asin" title="Arcsine">sin⁻¹</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="acos" title="Arccosine">cos⁻¹</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="atan" title="Arctangent">tan⁻¹</button>
+
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="ln" title="Natural Log">ln</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="log" title="Logarithm base 10">log₁₀</button>
+          <button class="key-btn sci-btn" data-action="op" data-val="^" title="Power (xʸ)">xʸ</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="sq" title="Square (x²)">x²</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="cube" title="Cube (x³)">x³</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="sqrt" title="Square Root (√x)">√x</button>
+
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="cbrt" title="Cube Root (∛x)">∛x</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="recip" title="Reciprocal (1/x)">1/x</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="fact" title="Factorial (x!)">x!</button>
+          <button class="key-btn sci-btn" data-action="const" data-val="pi" title="Pi constant (π)">π</button>
+          <button class="key-btn sci-btn" data-action="const" data-val="e" title="Euler's constant (e)">e</button>
+          <button class="key-btn sci-btn" data-action="sci-func" data-val="abs" title="Absolute value |x|">|x|</button>
+        </div>
+
+        <!-- Primary Keypad (Standard grid) -->
+        <div class="primary-keypad" id="primaryKeypad">
+          <!-- Row 1 -->
+          <button class="key-btn func-btn" data-action="clear-all" title="Clear All (Esc)">AC</button>
+          <button class="key-btn func-btn" data-action="clear-entry" title="Clear Entry">CE</button>
+          <button class="key-btn func-btn" data-action="backspace" title="Backspace (⌫)">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+              <line x1="18" y1="9" x2="12" y2="15"></line>
+              <line x1="12" y1="9" x2="18" y2="15"></line>
+            </svg>
+          </button>
+          <button class="key-btn op-btn" data-action="op" data-val="÷" title="Divide (/)">÷</button>
+
+          <!-- Row 2 -->
+          <button class="key-btn func-btn" data-action="bracket" data-val="(" title="Open Parenthesis">(</button>
+          <button class="key-btn func-btn" data-action="bracket" data-val=")" title="Close Parenthesis">)</button>
+          <button class="key-btn func-btn" data-action="percent" title="Percentage (%)">%</button>
+          <button class="key-btn op-btn" data-action="op" data-val="×" title="Multiply (*)">×</button>
+
+          <!-- Row 3 -->
+          <button class="key-btn num-btn" data-action="num" data-val="7">7</button>
+          <button class="key-btn num-btn" data-action="num" data-val="8">8</button>
+          <button class="key-btn num-btn" data-action="num" data-val="9">9</button>
+          <button class="key-btn op-btn" data-action="op" data-val="-" title="Subtract (-)">−</button>
+
+          <!-- Row 4 -->
+          <button class="key-btn num-btn" data-action="num" data-val="4">4</button>
+          <button class="key-btn num-btn" data-action="num" data-val="5">5</button>
+          <button class="key-btn num-btn" data-action="num" data-val="6">6</button>
+          <button class="key-btn op-btn" data-action="op" data-val="+" title="Add (+)">+</button>
+
+          <!-- Row 5 -->
+          <button class="key-btn num-btn" data-action="num" data-val="1">1</button>
+          <button class="key-btn num-btn" data-action="num" data-val="2">2</button>
+          <button class="key-btn num-btn" data-action="num" data-val="3">3</button>
+          <button class="key-btn equals-btn row-span-2" data-action="equals" title="Calculate (= or Enter)">=</button>
+
+          <!-- Row 6 -->
+          <button class="key-btn func-btn" data-action="negate" title="Toggle positive/negative">±</button>
+          <button class="key-btn num-btn" data-action="num" data-val="0">0</button>
+          <button class="key-btn num-btn" data-action="num" data-val=".">.</button>
+        </div>
+      </div>
+
+      <!-- UNIT CONVERTER PANE (Shown in Converter Mode) -->
+      <section class="converter-pane hidden" id="converterPane">
+        <div class="converter-category-bar" id="converterCategories">
+          <button class="conv-cat-btn active" data-cat="length">Length</button>
+          <button class="conv-cat-btn" data-cat="weight">Weight</button>
+          <button class="conv-cat-btn" data-cat="temperature">Temp</button>
+          <button class="conv-cat-btn" data-cat="data">Data</button>
+          <button class="conv-cat-btn" data-cat="speed">Speed</button>
+          <button class="conv-cat-btn" data-cat="area">Area</button>
+        </div>
+
+        <div class="converter-fields">
+          <!-- From Unit Box -->
+          <div class="conv-box">
+            <div class="conv-label">From</div>
+            <div class="conv-input-row">
+              <input type="number" id="convFromInput" class="conv-number-input" value="1" step="any">
+              <select id="convFromUnit" class="conv-select"></select>
+            </div>
+          </div>
+
+          <!-- Swap Units Button -->
+          <button class="conv-swap-btn" id="convSwapBtn" title="Swap Units">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"></path>
+            </svg>
+          </button>
+
+          <!-- To Unit Box -->
+          <div class="conv-box">
+            <div class="conv-label">To</div>
+            <div class="conv-input-row">
+              <input type="number" id="convToInput" class="conv-number-input" readonly>
+              <select id="convToUnit" class="conv-select"></select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-unit Instant Overview -->
+        <div class="conv-breakdown">
+          <div class="conv-breakdown-title">Quick Reference Equivalents</div>
+          <div class="conv-grid" id="convBreakdownGrid"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- History Drawer Sidebar -->
+    <aside class="history-drawer" id="historyDrawer" aria-label="Calculation History">
+      <div class="history-header">
+        <div class="history-title-wrap">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <h3>History Tape</h3>
+        </div>
+        <div class="history-controls">
+          <button class="hist-action-btn" id="clearHistoryBtn" title="Clear History">Clear</button>
+          <button class="hist-close-btn" id="closeHistoryBtn" aria-label="Close History">✕</button>
+        </div>
+      </div>
+
+      <div class="history-list" id="historyList">
+        <div class="empty-history" id="emptyHistoryMsg">
+          <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <p>No calculation history yet.<br>Solve formulas to record them here.</p>
+        </div>
+      </div>
+
+      <div class="history-footer">
+        <span class="history-hint">Tip: Click an entry to insert result</span>
+      </div>
+    </aside>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div class="modal-backdrop hidden" id="shortcutsModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Keyboard Shortcuts</h3>
+          <button class="modal-close-btn" id="closeShortcutsModal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="shortcut-row">
+            <span class="key-badge">0-9</span>
+            <span class="shortcut-desc">Input Numbers</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">+ - * /</span>
+            <span class="shortcut-desc">Arithmetic Operators</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">Enter</span> <span class="key-badge">=</span>
+            <span class="shortcut-desc">Calculate Result</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">Backspace</span>
+            <span class="shortcut-desc">Delete Last Character</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">Escape</span>
+            <span class="shortcut-desc">Clear All (AC)</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">( )</span> <span class="key-badge">^</span> <span class="key-badge">%</span>
+            <span class="shortcut-desc">Parentheses, Exponents, Modulo</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">H</span>
+            <span class="shortcut-desc">Toggle History Tape</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">S</span>
+            <span class="shortcut-desc">Toggle Sound FX</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">T</span>
+            <span class="shortcut-desc">Cycle Visual Themes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Box -->
+    <div class="toast-container" id="toastContainer"></div>
+  </div>
+
+  <!-- Main JavaScript Logic -->
+  <script src="calculator.js"></script>
+</body>
+</html>
