@@ -1,4 +1,4 @@
-const CACHE_NAME = 'omnicalc-v2';
+const CACHE_NAME = 'omnicalc-v3';
 const ASSETS = [
   './',
   './index.html',

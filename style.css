@@ -738,6 +738,9 @@ body {
   background: var(--bg-btn-num);
   color: var(--text-main);
   font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.36rem;
+  letter-spacing: -0.02em;
 }
 
 .num-btn:hover {
@@ -1353,6 +1356,11 @@ body {
     height: 48px;
     font-size: 1.15rem;
     border-radius: 12px;
+  }
+
+  .num-btn {
+    font-size: 1.25rem;
+    font-weight: 700;
   }
 
   .scientific-keypad {
