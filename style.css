@@ -470,7 +470,8 @@ body {
 
 /* --- Navigation Tabs --- */
 .nav-tabs {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4px;
   background: var(--bg-card);
   backdrop-filter: blur(20px);
@@ -479,30 +480,39 @@ body {
   padding: 4px;
   border-radius: var(--radius-pill);
   width: 100%;
+  box-sizing: border-box;
 }
 
 .tab-btn {
-  flex: 1;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 8px 8px;
+  gap: 5px;
+  padding: 8px 4px;
   border-radius: var(--radius-pill);
   background: transparent;
   border: none;
   color: var(--text-muted);
   font-family: var(--font-ui);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
   min-width: 0;
   white-space: nowrap;
+  box-sizing: border-box;
   transition: all var(--trans-normal);
 }
 
 .tab-btn svg {
   flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+
+.tab-btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tab-btn:hover {
