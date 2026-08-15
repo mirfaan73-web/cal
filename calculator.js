@@ -513,24 +513,17 @@
         });
       });
 
-      // Theme Picker button & menu
-      this.themePickerBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.themeMenu.classList.toggle('show');
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!this.themeMenu.contains(e.target) && e.target !== this.themePickerBtn) {
-          this.themeMenu.classList.remove('show');
+      // Theme Toggle Button (1-Click Light/Dark Mode Switcher)
+      this.themePickerBtn.addEventListener('click', () => {
+        const curr = document.documentElement.getAttribute('data-theme') || 'obsidian';
+        if (curr === 'aurora') {
+          this.setTheme('obsidian');
+          this.showToast('🌙 Dark Mode Enabled');
+        } else {
+          this.setTheme('aurora');
+          this.showToast('☀️ Light Mode Enabled');
         }
-      });
-
-      this.themeOpts.forEach(opt => {
-        opt.addEventListener('click', () => {
-          this.setTheme(opt.dataset.themeVal);
-          this.themeMenu.classList.remove('show');
-          this.sound.playClick();
-        });
+        this.sound.playClick();
       });
 
       // Sound Toggle
