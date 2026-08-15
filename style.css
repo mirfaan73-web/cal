@@ -751,7 +751,9 @@ body {
 .func-btn {
   background: var(--bg-btn-func);
   color: var(--text-muted);
-  font-size: 1.1rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.15rem;
 }
 
 .func-btn:hover {
@@ -762,7 +764,9 @@ body {
 .op-btn {
   background: var(--op-gradient);
   color: var(--op-text);
-  font-size: 1.4rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.55rem;
   box-shadow: 0 4px 16px var(--op-glow);
 }
 
@@ -774,8 +778,9 @@ body {
 .equals-btn {
   background: var(--equals-gradient);
   color: var(--equals-text);
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 1.65rem;
+  font-weight: 800;
   box-shadow: var(--equals-glow);
 }
 
@@ -1360,6 +1365,21 @@ body {
 
   .num-btn {
     font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .op-btn {
+    font-size: 1.45rem;
+    font-weight: 700;
+  }
+
+  .equals-btn {
+    font-size: 1.55rem;
+    font-weight: 800;
+  }
+
+  .func-btn {
+    font-size: 1.05rem;
     font-weight: 700;
   }
 
